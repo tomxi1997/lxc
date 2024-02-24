@@ -1,4 +1,4 @@
-name: Simple test build
+pname: Simple test build
 on:
   - push
   - pull_request
