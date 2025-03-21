@@ -38,8 +38,8 @@ jobs:
         wget https://dl.google.com/android/repository/android-ndk-r28-linux.zip
         unzip android-ndk-r28-linux.zip && rm android-ndk-r28-linux.zip
         sudo mkdir -p /build/
-        sudo mv android-ndk-r28 /build/ndk
-        ls /build/ndk
+        sudo mv -R android-ndk-r28 /
+      
 
   
 
