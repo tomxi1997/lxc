@@ -38,7 +38,7 @@ jobs:
         wget https://dl.google.com/android/repository/android-ndk-r28-linux.zip
         unzip android-ndk-r28-linux.zip && rm android-ndk-r28-linux.zip
         sudo mkdir -p /build/
-        sudo mv -R android-ndk-r28 /
+        sudo mv android-ndk-r28 /android-ndk-r28
       
 
   
@@ -46,6 +46,7 @@ jobs:
     - name: build android LXC
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
+        ls /android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin
         export ANDROID_NDK=$GITHUB_WORKSPACE/kernel_workspace/android-ndk-r28
         git clone https://github.com/tomxi1997/lxc 
         cd lxc
