@@ -1,0 +1,79 @@
+name: Build android lxc
+on:
+  watch:
+    types: [started]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Android LXC by ${{ github.actor }}
+    runs-on: ubuntu-22.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
+      CI: "false"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Prepare Configuration
+      run: |
+        echo "ENABLE_NETHUNTER=$(cat $CONFIG_ENV | grep -w "ENABLE_NETHUNTER" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+        
+    - name: Set swap to 10G
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 10
+
+    - name: Setup build environment
+      run: |
+        echo "BUILD_TIME=$(TZ=Asia/Shanghai date "+%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "DEVICE=$(echo ${{ env.KERNEL_CONFIG }} | sed 's!vendor/!!;s/_defconfig//;s/_user//;s/-perf//')" >> $GITHUB_ENV
+        sudo apt-get update
+        sudo apt install -y curl vim git gcc unzip wget make crossbuild-essential-amd64 clang meson llvm 
+        sudo apt-get install -qq libapparmor-dev libcap-dev libseccomp-dev libselinux1-dev linux-libc-dev libpam0g-dev docbook2x libdbus-1-dev gcc-aarch64-linux-gnu ccache
+        mkdir -p $GITHUB_WORKSPACE/kernel_workspace
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        wget https://dl.google.com/android/repository/android-ndk-r28-linux.zip
+        unzip android-ndk-r28-linux.zip && rm android-ndk-r28-linux.zip
+        sudo mkdir -p /build/
+        sudo mv android-ndk-r28 /build/ndk
+        ls /build/ndk
+
+  
+
+    - name: build android LXC
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        export ANDROID_NDK=$GITHUB_WORKSPACE/kernel_workspace/android-ndk-r28
+        git clone https://github.com/tomxi1997/lxc 
+        cd lxc
+        meson setup build \
+          --cross-file $GITHUB_WORKSPACE/kernel_workspace/lxc/cross-android.txt \
+          -Dstrip=true \
+          -Dprefix=/data/lxc6 \
+          -Druntime-path=/data/local/tmp \
+          -Dinit-script=sysvinit -Dman=false \
+          -Dpam-cgroup=false -Dtests=true \
+          -Dlog-path=/data/lxc6/var/log/lxc \
+          -Ddata-path=/data/lxc6/lib/lxc \
+          --localstatedir=/data/lxc6/var/ \
+          -Druntime-path=/cache/ -Ddbus=false
+          ninja -C build
+          sudo DESTDIR=build_install ninja -C build install
+        
+        
+        
+    - name: add lxc tar
+      run: |
+        sudo bash -c 'cd /data && tar -czvf lxc6.tar.xz llama && cp lxc6.tar.xz /home/runner/work/lxc/lxc/kernel_workspace'
+    
+
+    - name: Upload lxc
+      uses: actions/upload-artifact@v4
+      with:
+        name: lxc-android28-arm64
+        path: kernel_workspace/lxc.tar.xz
+
+  
