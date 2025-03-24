@@ -1,6 +1,6 @@
 [binaries]
-c       = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang'
-cpp     = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang'
+c       = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
+cpp     = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
 ar      = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar'
 as      = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64bin/llvm-as'
 ranlib  = '/android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ranlib'
