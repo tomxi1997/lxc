@@ -38,11 +38,7 @@ jobs:
               libpam0g-dev \
               libseccomp-dev \
               libselinux1-dev
-        sudo apt-get install -qq libapparmor-dev libcap-dev libseccomp-dev libselinux1-dev linux-libc-dev libpam0g-dev docbook2x libdbus-1-dev 
-
-        
-        
-        ccache
+        sudo apt-get install -qq libapparmor-dev libcap-dev libseccomp-dev libselinux1-dev linux-libc-dev libpam0g-dev docbook2x libdbus-1-dev
         mkdir -p $GITHUB_WORKSPACE/kernel_workspace
         cd $GITHUB_WORKSPACE/kernel_workspace
         wget https://dl.google.com/android/repository/android-ndk-r24-linux.zip
