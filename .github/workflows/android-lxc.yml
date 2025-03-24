@@ -35,10 +35,10 @@ jobs:
         sudo apt-get install -qq libapparmor-dev libcap-dev libseccomp-dev libselinux1-dev linux-libc-dev libpam0g-dev docbook2x libdbus-1-dev gcc-aarch64-linux-gnu ccache
         mkdir -p $GITHUB_WORKSPACE/kernel_workspace
         cd $GITHUB_WORKSPACE/kernel_workspace
-        wget https://dl.google.com/android/repository/android-ndk-r28-linux.zip
-        unzip android-ndk-r28-linux.zip && rm android-ndk-r28-linux.zip
+        wget https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip
+        unzip *.zip && rm *.zip
         sudo mkdir -p /build/
-        sudo mv android-ndk-r28 /android-ndk-r28
+        sudo mv android-ndk-r20b /android-ndk-r20b
       
 
   
@@ -46,7 +46,7 @@ jobs:
     - name: build android LXC
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        ls /android-ndk-r28/toolchains/llvm/prebuilt/linux-x86_64/bin
+        ls /android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin
         export ANDROID_NDK=$GITHUB_WORKSPACE/kernel_workspace/android-ndk-r28
         git clone https://github.com/tomxi1997/lxc 
         cd lxc
