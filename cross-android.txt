@@ -1,11 +1,11 @@
 [binaries]
-c       = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
-cpp     = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
-ar      = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar'
-as      = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64bin/llvm-as'
-ranlib  = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ranlib'
-ld      = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/ld'
-strip   = '/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip'
+c       = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
+cpp     = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
+ar      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar'
+as      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64bin/llvm-as'
+ranlib  = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ranlib'
+ld      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/ld'
+strip   = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip'
 pkgconfig = 'false'
 
 [host_machine]
@@ -16,7 +16,7 @@ endian = 'little'
 
 [built-in options]
 c_args = [
-	'--sysroot=/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot/',
+	'--sysroot=/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/sysroot/',
 	'-I/build/libcap/libcap/include/']
 c_link_args = [
-	'--sysroot=/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot/']
+	'--sysroot=/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/sysroot/']
