@@ -1,0 +1,21 @@
+[binaries]
+c       = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
+cpp     = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang++'
+ar      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar'
+as      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64bin/llvm-as'
+ranlib  = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ranlib'
+ld      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/ld'
+strip   = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip'
+
+pkg-config = '/usr/bin/pkg-config'
+cmake = '/usr/bin/cmake'
+
+[built-in options]
+c_args = ['-O2', '-pipe', '-g', '-feliminate-unused-debug-types']
+c_link_args = ['-Wl,-rpath', '-Wl,--as-needed']
+cpp_args = ['-O2', '-pipe', '-g', '-feliminate-unused-debug-types']
+cpp_link_args = ['-Wl,-rpath', '-Wl,--as-needed']
+
+
+
+
