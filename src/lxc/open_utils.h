@@ -19,13 +19,13 @@
  * @mode: O_CREAT/O_TMPFILE file mode.
  * @resolve: RESOLVE_* flags.
  */
-#if !HAVE_STRUCT_OPEN_HOW
+/*#if !HAVE_STRUCT_OPEN_HOW
 struct open_how {
 	__u64 flags;
 	__u64 mode;
 	__u64 resolve;
 };
-#endif
+#endif*/
 
 /* how->resolve flags for openat2(2). */
 #ifndef RESOLVE_NO_XDEV

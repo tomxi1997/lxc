@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build Android LXC by ${{ github.actor }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event.repository.owner.id == github.event.sender.id
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -56,25 +56,29 @@ jobs:
         export ANDROID_NDK=$GITHUB_WORKSPACE/kernel_workspace/android-ndk-r28
         git clone https://github.com/tomxi1997/lxc 
         cd lxc
-        meson setup build \
-          --cross-file $GITHUB_WORKSPACE/kernel_workspace/lxc/cross-android.txt \
-          -Dstrip=true \
-          -Dprefix=/data/lxc6 \
-          -Druntime-path=/data/local/tmp \
-          -Dinit-script=sysvinit -Dman=false \
-          -Dpam-cgroup=false -Dtests=true \
-          -Dlog-path=/data/lxc6/var/log/lxc \
-          -Ddata-path=/data/lxc6/lib/lxc \
-          --localstatedir=/data/lxc6/var/ \
-          -Druntime-path=/cache/ -Ddbus=false
-          ninja -C build
-          sudo DESTDIR=build_install ninja -C build install
-        
-        
+        meson setup build -Dprefix=/data/lxc6 \
+                            -Dinit-script=sysvinit \
+                            -Druntime-path=/data/local/tmp \
+                            -Dstrip=true \
+                            -Dd_lto=true \
+                            -Dcapabilities=false \
+                            -Dseccomp=false \
+                            -Dselinux=false \
+                            -Dapparmor=false \
+                            -Dopenssl=false \
+                            -Ddbus=false \
+                            -Dlog-path=/data/lxc6/var/log/lxc \
+                            -Ddata-path=/data/lxc6/lib/lxc \
+                            --localstatedir=/data/lxc6/var \
+                            --buildtype release \
+                            --cross-file $GITHUB_WORKSPACE/kernel_workspace/lxc/cross.txt \
+                            --wipe
+          meson compile -C build
+          sudo ninja -C build install
         
     - name: add lxc tar
       run: |
-        sudo bash -c 'cd /data && tar -czvf lxc6.tar.xz llama && cp lxc6.tar.xz /home/runner/work/lxc/lxc/kernel_workspace'
+        sudo bash -c 'cd /data && tar -czvf lxc6.tar.xz lxc6 && cp lxc6.tar.xz /home/runner/work/lxc/lxc/kernel_workspace'
     
 
     - name: Upload lxc

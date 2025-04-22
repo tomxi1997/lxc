@@ -6,17 +6,16 @@ as      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64bin/llvm-as'
 ranlib  = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ranlib'
 ld      = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/ld'
 strip   = '/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip'
-pkgconfig = 'false'
 
-[host_machine]
-system = 'android'
-cpu_family = 'arm'
-cpu = 'arm'
-endian = 'little'
+pkg-config = '/usr/bin/pkg-config'
+cmake = '/usr/bin/cmake'
 
 [built-in options]
-c_args = [
-	'--sysroot=/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/sysroot/',
-	'-I/build/libcap/libcap/include/']
-c_link_args = [
-	'--sysroot=/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/sysroot/']
+c_args = ['-O2', '-pipe', '-g', '-feliminate-unused-debug-types']
+c_link_args = ['-Wl,-rpath', '-Wl,--as-needed']
+cpp_args = ['-O2', '-pipe', '-g', '-feliminate-unused-debug-types']
+cpp_link_args = ['-Wl,-rpath', '-Wl,--as-needed']
+
+
+
+

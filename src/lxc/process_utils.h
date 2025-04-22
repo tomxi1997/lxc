@@ -164,7 +164,7 @@
 #define u64_to_ptr(x) ((void *)(uintptr_t)x)
 #endif
 
-#if !HAVE_STRUCT_CLONE_ARGS
+/*#if !HAVE_STRUCT_CLONE_ARGS
 struct clone_args {
 	__aligned_u64 flags;
 	__aligned_u64 pidfd;
@@ -178,7 +178,7 @@ struct clone_args {
 	__aligned_u64 set_tid_size;
 	__aligned_u64 cgroup;
 };
-#endif
+#endif*/
 
 __returns_twice static inline pid_t lxc_clone3(struct clone_args *args, size_t size)
 {
